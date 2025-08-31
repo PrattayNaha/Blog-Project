@@ -1,0 +1,262 @@
+{% load static %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>The Tech Journal</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+<a href="{% url 'index' %}" style="text-decoration: none; color: inherit;">
+<div class="header">
+  <h1>The Tech Journal</h1>
+  <p>Science • Systems • Solutions</p>
+</div>
+<div class="center-btns">
+  {% if user.is_authenticated %}
+    <a class="btn" href="{% url 'blog_create' %}">+ Write Blog</a>
+    <a class="btn" href="{% url 'profile' user.username %}">Profile</a>
+  {% endif %}
+  <div class="categories">
+    <ul>
+      {% for category in categories %}
+        <li>
+          <a class="btn" href="{% url 'category_posts' category.slug %}">{{ category.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="search-bar" style="text-align: center; margin: 20px 0;">
+  <form method="GET" action="{% url 'search' %}" class="search-form">
+    <select name="search_by">
+      <option value="title">By Blog Post</option>
+      <option value="author">By Author</option>
+    </select>
+    <input type="text" name="query" placeholder="Search...">
+    <button type="submit" class="btn">Search</button>
+  </form>
+</div>
+<div class="row">
+  <div class="leftcolumn">
+    {% for post in page_obj %}
+    <div class="card">
+      <a style="text-decoration: none; color: black;" href="/post/{{ post.id }}">
+        <h2>{{ post.title }}</h2>
+        <h5>{{ post.created_at|date:"M d, Y H:i" }} | by {{ post.author.profile.profile_name }}</h5>
+        {% if post.image %}
+          <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-img" style="height:200px; width:100%; object-fit:cover; border-radius:12px; margin-bottom:16px;">
+        {% else %}
+          <div class="fakeimg" style="height:200px;"></div>
+        {% endif %}
+        <p>{{ post.body|striptags|truncatechars:300 }}</p>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>About Blog</h2>
+      <p style="text-align: justify;">
+        The Tech Journal is a platform dedicated to exploring the latest innovations in science and technology.
+        We break down complex systems into simple, insightful stories for curious minds and professionals alike.
+        From artificial intelligence to next-generation connectivity, our content highlights real-world impact.
+        Our mission is to provide knowledge, spark ideas, and inspire solutions for the digital era.
+         </p>
+    </div>
+    <div class="card">
+      <h3>Popular Posts</h3>
+      {% for post in popular_posts %}
+        <div class="card">
+          <a href="{% url 'post' post.id %}" 
+            style="text-decoration: none; color: #333; font-weight: 600; font-size: 17px; display: block;">
+            {% if post.title|length > 40 %}
+              {{ post.title|slice:":40" }}...
+            {% else %}
+              {{ post.title }}
+            {% endif %}
+          </a>
+        </div>
+      {% empty %}
+        <p style="color: #777;">No popular posts yet.</p>
+      {% endfor %}
+    </div>
+    <div class="card">
+      <h3>Follow Us On</h3>
+      <p>
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" 
+            alt="Facebook" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
+        Facebook
+      </p>
+      <p>
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" 
+            alt="Instagram" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
+        Instagram
+      </p>
+      <p>
+        <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png" 
+          alt="X" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
+        X
+      </p>
+    </div>
+    {% if not user.is_authenticated %}
+    <div class="card">
+      <h3>Be a Writer</h3>
+      <p>Want to share your thoughts?</p>
+      <a style="text-decoration: none;" href="{% url 'custom_login' %}" class="writer-btn">Start Writing</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+<div class="pagination" style="text-align:center; margin:20px 0;">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">Prev</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <strong style="margin:0 5px;">{{ num }}</strong>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}" style="margin:0 5px;">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+</div>
+<div class="footer">
+  <h2>Footer</h2>
+</div>
+
+<style>
+  .center-btns {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .center-btns .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 5px 0;
+    background-color: #007BFF; /* adjust if profile.html uses a different color */
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    animation: fadeInDown 1s;
+  }
+
+.center-btns .btn:hover {
+  background-color: #0056b3; /* darker hover color */
+  transform: translateY(-4px) scale(1.02);
+}
+
+.categories ul {
+  display: flex;           /* arrange items horizontally */
+  flex-wrap: wrap;         /* wrap to next line if screen is small */
+  gap: 8px;                /* space between buttons */
+  padding: 0;
+  margin: 5px 0;
+  list-style: none;
+  justify-content: center; /* center the buttons */
+}
+
+.categories ul li {
+  margin: 0;               /* remove default margin */
+}
+
+.categories ul li .btn {
+  display: inline-block;   /* ensures proper padding & clickable area */
+}
+.pagination a {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 0 3px;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.pagination a:hover {
+  background-color: #0056b3;
+}
+.pagination strong {
+  padding: 6px 12px;
+  margin: 0 3px;
+  background-color: #444;
+  color: white;
+  border-radius: 6px;
+}
+
+.search-bar {
+  text-align: center;
+  margin: 20px 0;
+  
+}
+
+.search-form {
+  display: inline-flex;          
+  align-items: center;           
+  gap: 6px;                      
+  transition: 0.3s ease;         
+  animation: fadeInDown 1s;     
+}
+
+.search-form select,
+.search-form input{
+  height: 40px;                 
+  font-size: 15px;               
+  border-radius: 8px;           
+  border: 1px solid #ccc;        
+  box-sizing: border-box;        
+  outline: none;                
+  box-shadow: none;
+  padding: 0px 8px;            
+}
+.search-form button{
+  height: 40px;                  
+  padding: 0px 8px;              
+  font-size: 15px;               
+  border-radius: 8px;           
+  border: none;               
+  box-sizing: border-box;        
+  outline: none;                
+  box-shadow: none;             
+  transition: 0.3s ease;
+  font-weight: bold;        
+}
+.search-form button {
+  cursor: pointer;
+  background-color: #007bff;     
+  color: #fff;                   
+  border: 1px solid #007bff;    
+}
+
+.search-form button:hover {
+  background-color: #0056b3;     /* hover effect */
+  border-color: #0056b3;
+  transform: translateY(-4px) scale(1.02);
+}
+
+@media (max-width: 640px) {
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .search-form select,
+  .search-form input,
+  .search-form button {
+    width: 100%;
+  }
+}
+
+</style>

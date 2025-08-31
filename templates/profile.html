@@ -1,0 +1,103 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="/static/profile.css">
+<div class="profile-container">
+    <!-- Cover Photo -->
+    <div class="cover-photo" onclick="togglePopup('coverPopup')">
+        <img src="{{ profile.cover_photo.url }}" alt="Cover Photo">
+        {% if profile.user == request.user %}
+        <div id="coverPopup" class="popup-menu">
+            <form method="post" enctype="multipart/form-data" action="{% url 'change_cover_photo' %}">
+                {% csrf_token %}
+                <input type="file" name="cover_photo" accept="image/*" onchange="this.form.submit()">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <!-- Profile Picture -->
+    <div class="profile-pic">
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture"  onclick="togglePopup('profilePopup')">
+        {% if profile.user == request.user %}
+        <div id="profilePopup" class="popup-menu">
+            <form method="post" enctype="multipart/form-data" action="{% url 'change_profile_pic' %}">
+                {% csrf_token %}
+                <input type="file" name="profile_picture" accept="image/*" onchange="this.form.submit()">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div class="author-info">
+        <h2>{{ profile.profile_name }}</h2>
+        <h4 style="margin-top: 20px; margin-bottom: 20px;">@{{ profile.user.username }}</h4>
+        <p class="about" style="margin-bottom: 30px;">
+            {% if profile.about %}
+                {{ profile.about }}
+            {% else %}
+                Write something about yourself here...
+            {% endif %}
+        </p>
+        {% if request.user == profile.user %}
+            <button onclick="toggleAboutForm()" class="edit-btn">Edit About</button>
+
+            <form id="aboutForm" method="post" action="{% url 'edit_about' %}" style="display:none; margin-top: 10px;">
+                {% csrf_token %}
+                <textarea name="about" rows="4" cols="50" placeholder="Write something about yourself...">{{ user.profile.about }}</textarea><br>
+                <button type="submit" class="save-btn">Save</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% if profile.user == request.user%}
+    <div class="center-btns">
+        <a style = "text-decoration: none;" href="{% url 'blog_create' %}">+ New Blog</a>
+        <a style = "text-decoration: none;" href="{% url 'index' %}">Blog Feed</a>
+    </div>
+{% endif %}
+<ul>
+  {% for blog in blogs %}
+    <li>
+        <h2>
+            <a href="{% url 'post' blog.id %}" class="title-btn" style="text-decoration: none;">
+                {{ blog.title }}
+            </a>
+        </h2>
+        {% if profile.user == request.user%}
+            <div class="edit">
+            <form action="{% url 'blog_edit' blog.id %}" method="get" style="display:inline;">
+                    <button type="submit" class="edit-btns" >Edit</button>
+                </form>
+            <form action="{% url 'blog_delete' blog.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button class="edit-btns" type="submit">Delete</button>
+            </form>
+            </div>
+        {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+<!-- Logout Button -->
+{% if profile.user == request.user %}
+    <div class="logout-btn-container">
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+{% endif %}
+</div>
+
+
+<script>
+function togglePopup(id) {
+    const popup = document.getElementById(id);
+    popup.classList.toggle('show');
+}
+
+</script>
+<script>
+    function toggleAboutForm() {
+    const form = document.getElementById("aboutForm");
+    form.style.display = (form.style.display === "none" || form.style.display === "") 
+        ? "block" 
+        : "none";
+}
+</script>

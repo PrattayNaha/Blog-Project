@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% if form.instance.id %}Edit Blog{% else %}New Blog{% endif %}</title>
+  <link rel="stylesheet" href="{% static 'form.css' %}">
+  {{ form.media }}   <!-- keep this inside <head> -->
+</head>
+<body>
+  <div class="form-container">
+    <h1>{% if form.instance.id %}Edit Blog{% else %}New Blog{% endif %}</h1>
+    <form method="POST" enctype="multipart/form-data">  <!-- add enctype -->
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+</html>
+

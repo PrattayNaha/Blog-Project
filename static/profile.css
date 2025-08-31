@@ -1,0 +1,284 @@
+.center-btn {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.action-btns a,
+.action-btns button {
+    margin-right: 10px;
+}
+
+.logout-btn-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Logout button styled like + New Blog */
+.logout-btn {
+    display: inline-block;
+    background-color: #2563eb;  /* Green like New Blog */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #1e40af;
+}
+
+.title-btn {
+    display: inline-block;
+    color: #007bff;        /* blue text to indicate clickable link */
+    font-weight: bold;
+    text-decoration: none;  /* remove underline */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.title-btn:focus {
+    outline: none;
+    box-shadow: none;      /* remove blue focus box */
+}
+.profile-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.cover-photo {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cover-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-pic {
+    position: relative;
+    top: -60px;
+    margin-bottom: -60px;
+    cursor: pointer;
+}
+
+.profile-pic img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+}
+
+.popup-menu {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 220px; /* set a fixed width */
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    border: 1px solid #e0e0e0;
+    z-index: 1000;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.popup-menu.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.popup-menu input[type="file"] {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.popup-menu input[type="file"]:hover {
+    background-color: #f1f1f1;
+    border-color: #bdbdbd;
+}
+
+.edit-btn, .save-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: 5px;
+}
+
+.edit-btn:hover, .save-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f4f6fb;
+  color: #22223b;
+  margin: 0;
+  padding: 40px 0;
+}
+
+h1 {
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 32px;
+  font-size: 2.5em;
+  letter-spacing: 2px;
+}
+
+.center-btns {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  gap: 20px; /* space between the two */
+  margin: 20px 0;
+}
+
+.center-btns a {
+  text-decoration: none;
+  padding: 10px 18px;
+  background: #0073e6;   /* same as + New Blog */
+  color: white;
+  border-radius: 6px;
+  display: inline-block;  /* makes sure it looks like a box */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.2s ease;
+}
+
+a {
+  color: Black;
+  text-decoration: none;
+  font-weight: 500;
+  margin-right: 16px;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #1e40af;
+  text-decoration: underline;
+}
+.title-btn{
+    color: #6b6c71ff;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+li {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+  margin-bottom: 24px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -15px;
+}
+
+li h2 {
+  margin: 0;
+  font-size: 1.3em;
+  color: black;
+  flex: 1;
+}
+
+.edit-btns {
+  padding: 8px 18px;
+  border-radius: 6px;
+  background: #e0e7ff;
+  color: #2563eb;
+  border: none;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none; /* makes <a> look like a button */
+}
+
+.edit-btns:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+a[href*="blog_create"] {
+  display: inline-block;
+  margin-bottom: 32px;
+  background: #2563eb;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+  transition: background 0.2s, color 0.2s;
+  margin-right: 0;
+}
+
+a[href*="blog_create"]:hover {
+  background: #1e40af;
+  color: #e0e7ff;
+}
+
+/* Primary button: New Blog */
+.center-btns a:first-child {
+  background: #0073e6;
+  color: white;
+}
+
+/* Secondary button: Blog Feed */
+.center-btns a:last-child {
+  background: #0073e6;
+  color: white;
+  height: 22.5px;
+  text-align: center;
+  padding: 10px 18px;
+  font-size: 1.1em;
+  width: 90px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.center-btns a:first-child:hover {
+  background: #005bb5;
+}
+
+.center-btns a:last-child:hover {
+  background: #005bb5;
+}
