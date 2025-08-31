@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["blog-project-1-eoy1.onrender.com"]
 
+# For Django 5+
+CSRF_TRUSTED_ORIGINS = [
+    "https://blog-project-1-eoy1.onrender.com"
+]
 
 # Application definition
 
