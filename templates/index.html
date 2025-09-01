@@ -29,12 +29,12 @@
   </div>
 </div>
 <div class="search-bar" style="text-align: center; margin: 20px 0;">
-  <form method="GET" action="{% url 'search' %}" class="search-form">
+  <form method="GET" action="/search/" class="search-form">
     <select name="search_by">
       <option value="title">By Blog Post</option>
       <option value="author">By Author</option>
     </select>
-    <input type="text" name="query" placeholder="Search...">
+    <input type="text" name="query" placeholder="Search..." value="{{ request.GET.query|default:'' }}">
     <button type="submit" class="btn">Search</button>
   </form>
 </div>
