@@ -5,6 +5,11 @@ Includes authentication, profile management, and media uploads.
 
 ---
 
+## Live Demo  
+👉 [View the Live Site](https://blog-project-1-eoy1.onrender.com)  -
+
+---
+
 ## 🚀 Features
 - User registration & login
 - Create, edit, and delete blog posts
