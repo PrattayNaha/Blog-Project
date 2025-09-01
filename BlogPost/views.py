@@ -208,12 +208,15 @@ def search(request):
     search_by = request.GET.get('search_by')
     
     if not query:
-        return redirect('index')
-    
-    if search_by == 'author' or search_by == 'profile_name':
-        posts = Post.objects.filter(author__username__icontains=query) | Post.objects.filter(author__profile__profile_name__icontains=query)
+        posts = Post.objects.none()
     else:
-        posts = Post.objects.filter(title__icontains=query)
+        if search_by == 'author':
+            posts = Post.objects.filter(
+                Q(author__username__icontains=query) |
+                Q(author__profile__profile_name__icontains=query)
+            )
+        else:
+            posts = Post.objects.filter(title__icontains=query)
     
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
