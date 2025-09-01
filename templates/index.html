@@ -31,12 +31,32 @@
 <div class="search-bar" style="text-align: center; margin: 20px 0;">
   <form method="GET" action="{% url 'search' %}" class="search-form">
     <select name="search_by">
-      <option value="title">By Blog Post</option>
-      <option value="author">By Author</option>
+      <option value="title" {% if request.GET.search_by == "title" %}selected{% endif %}>By Blog Post</option>
+      <option value="author" {% if request.GET.search_by == "author" %}selected{% endif %}>By Author</option>
     </select>
     <input type="text" name="query" placeholder="Search..." value="{{ request.GET.query|default:'' }}">
     <button type="submit" class="btn">Search</button>
   </form>
+  <!-- Pagination links -->
+  {% if page_obj %}
+  <div class="pagination" style="margin-top: 15px;">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}&search_by={{ request.GET.search_by }}">Prev</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <strong>{{ num }}</strong>
+      {% else %}
+        <a href="?page={{ num }}&query={{ request.GET.query }}&search_by={{ request.GET.search_by }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}&search_by={{ request.GET.search_by }}">Next</a>
+    {% endif %}
+  </div>
+  {% endif %}
 </div>
 <div class="row">
   <div class="leftcolumn">
