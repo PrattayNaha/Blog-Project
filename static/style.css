@@ -15,7 +15,7 @@ body {
   padding: 40px 20px;
   font-size: 40px;
   text-align: center;
-  background:url("{% static 'image/image01.jpg' %}") center/cover, linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+  background:url("{% static 'Image/image01.jpg' %}") center/cover, linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
   color: #fff;
   border-radius: 18px;
   box-shadow: 0 6px 24px rgba(79, 70, 229, 0.15);
