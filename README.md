@@ -24,7 +24,7 @@ Includes authentication, profile management, and media uploads.
 - **Backend:** Django, SQLite (default)
 - **Frontend:** HTML, CSS, Bootstrap
 - **Authentication:** Django Auth System
-- **Deployment Ready:** Heroku / PythonAnywhere
+- **Deployment Ready:** Render / PythonAnywhere
 
 
 ---
