@@ -29,7 +29,7 @@ Includes authentication, profile management, and media uploads.
 
 ---
 
-**Project Structure**
+**📁 Project Structure**
 
 - **Blog-Project/**
   - **Blog/** – Main app  
