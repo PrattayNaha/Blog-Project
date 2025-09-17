@@ -29,17 +29,17 @@ Includes authentication, profile management, and media uploads.
 
 ---
 
-## 📂 Project Structure
+**Project Structure**
 
+- **Blog-Project/**
+  - **Blog/** – Main app  
+  - **BlogPost/** – Blog posts app  
+  - **static/** – Static files (CSS, JS, Images)  
+  - **templates/** – HTML templates  
+  - **media/** – Uploaded images  
+  - **db.sqlite3** – Database  
+  - **manage.py** – Django manager  
 
-Blog-Project/
-│── Blog/ # Main app
-│── BlogPost/ # Blog posts app
-│── static/ # Static files (CSS, JS, Images)
-│── templates/ # HTML templates
-│── media/ # Uploaded images
-│── db.sqlite3 # Database
-│── manage.py # Django manager
 
 
 ---
